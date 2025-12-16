@@ -10,9 +10,9 @@ declare module '@mui/material/styles' {
     caption2: CSSObject;
     body3: CSSObject;
     body4: CSSObject;
-    primaryButtonL: CSSObject;
+    buttonL: CSSObject;
     buttonM: CSSObject;
-    menuButtonS: CSSObject;
+    buttonS: CSSObject;
     label: CSSObject;
     link: CSSObject;
   }
@@ -26,9 +26,9 @@ declare module '@mui/material/styles' {
     caption2?: CSSObject;
     body3?: CSSObject;
     body4?: CSSObject;
-    primaryButtonL?: CSSObject;
+    buttonL?: CSSObject;
     buttonM?: CSSObject;
-    menuButtonS?: CSSObject;
+    buttonS?: CSSObject;
     label?: CSSObject;
     link?: CSSObject;
   }
@@ -44,9 +44,9 @@ declare module '@mui/material/Typography' {
     caption2: true;
     body3: true;
     body4: true;
-    primaryButtonL: true;
+    buttonL: true;
     buttonM: true;
-    menuButtonS: true;
+    buttonS: true;
     label: true;
     link: true;
   }
@@ -55,9 +55,45 @@ declare module '@mui/material/Typography' {
 const theme = createTheme({
   typography: {
     fontFamily: 'Roboto, Arial, sans-serif',
-    // --- Subtitles (Subtitle added 3 & 4) ---
+
+    // --- Headings (h1 - h6) ---
+    h1: { // Heading 1
+      fontSize: '28px', lineHeight: '36px',
+      '@media (min-width:900px)': { fontSize: '48px', lineHeight: '64px' },
+    },
+    h2: { // Heading 2
+      fontSize: '24px', lineHeight: '32px',
+      '@media (min-width:900px)': { fontSize: '40px', lineHeight: '48px' },
+    },
+    h3: { // Heading 3
+      fontSize: '18px', lineHeight: '24px',
+      '@media (min-width:900px)': { fontSize: '32px', lineHeight: '40px' },
+    },
+    h4: { // Heading 4
+      fontSize: '16px', lineHeight: '24px',
+      '@media (min-width:900px)': { fontSize: '28px', lineHeight: '40px' },
+    },
+    h5: { // Heading 5
+      fontSize: '14px', lineHeight: '20px',
+      '@media (min-width:900px)': { fontSize: '20px', lineHeight: '28px' },
+    },
+    h6: { // Heading 6
+      fontSize: '12px', lineHeight: '20px',
+      '@media (min-width:900px)': { fontSize: '18px', lineHeight: '24px' },
+    },
+
+    // --- Subtitles (Subtitle 1 & 2 are standard, added 3 & 4) ---
+    subtitle1: { // Subtitle 1
+      fontSize: '28px', lineHeight: '32px',
+      '@media (min-width:900px)': { fontSize: '48px', lineHeight: '56px' },
+    },
+    subtitle2: { // Subtitle 2
+      fontSize: '20px', lineHeight: '24px',
+      '@media (min-width:900px)': { fontSize: '24px', lineHeight: '32px' },
+    },
     subtitle3: {
       fontSize: '14px', lineHeight: '20px',
+      fontFamily: 'Roboto, Arial, sans-serif', // ใส่เผื่อไว้เพื่อให้ TS ไม่ฟ้อง
       fontWeight: 400,
       '@media (min-width:900px)': { fontSize: '18px', lineHeight: '24px' },
     },
@@ -68,7 +104,15 @@ const theme = createTheme({
       '@media (min-width:900px)': { fontSize: '16px', lineHeight: '24px' },
     },
 
-    // --- Body (added 3 & 4) ---
+    // --- Body (Body 1 & 2 are standard, added 3 & 4) ---
+    body1: { // Body 1
+      fontSize: '16px', lineHeight: '24px',
+      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '24px' },
+    },
+    body2: { // Body 2
+      fontSize: '12px', lineHeight: '20px',
+      '@media (min-width:900px)': { fontSize: '14px', lineHeight: '20px' },
+    },
     body3: {
       fontSize: '14px', lineHeight: '20px',
       fontFamily: 'Roboto, Arial, sans-serif',
@@ -115,11 +159,11 @@ const theme = createTheme({
     },
 
     // --- Buttons & Labels ---
-    primaryButtonL: {
+    buttonL: {
       fontSize: '28px', lineHeight: '36px',
       fontFamily: 'Roboto, Arial, sans-serif',
       fontWeight: 500,
-      textTransform: 'none', 
+      textTransform: 'none',
       '@media (min-width:900px)': { fontSize: '40px', lineHeight: '48px' },
     },
     buttonM: {
@@ -128,7 +172,7 @@ const theme = createTheme({
       fontWeight: 500,
       '@media (min-width:900px)': { fontSize: '20px', lineHeight: '28px' },
     },
-    menuButtonS: {
+    buttonS: {
       fontSize: '14px', lineHeight: '20px',
       fontFamily: 'Roboto, Arial, sans-serif',
       fontWeight: 500,
