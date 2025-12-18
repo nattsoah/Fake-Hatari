@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
@@ -8,33 +8,40 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 // Icons
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Image from 'next/image';
 import { SxProps } from '@mui/material';
 import { Theme } from '@emotion/react';
 import { usePathname } from 'next/navigation';
+import NavbarMobile from './navbar-mobile';
 
 interface NavLink {
     text: string;
     href: string;
+    image?: string;
     isHighlight?: boolean;
-    subItems?: { text: string; href: string }[];
+    subItems?: NavLink[];
 }
 
 const Navbar = () => {
     const pathname = usePathname();
     const [mobileOpen, setMobileOpen] = useState(false);
-    const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen);
+    };
+    const theme = useTheme();
+    const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+    useEffect(() => {
+        if (isDesktop && mobileOpen) {
+            setMobileOpen(false);
+        }
+    }, [isDesktop, mobileOpen]);
 
     //Lang
     const [currentLang, setCurrentLang] = useState<'th' | 'en'>('en');
@@ -51,7 +58,7 @@ const Navbar = () => {
     const responsiveFontStyles: SxProps<Theme> = {
         whiteSpace: 'nowrap',
         cursor: 'pointer',
-        lineHeight: 1, // เพิ่ม lineHeight 1 เพื่อการจัดกึ่งกลางที่แม่นยำ
+        lineHeight: 1,
         '@media (max-width:1283px)': { fontSize: '12px' },
         '@media (max-width:1200px)': { fontSize: '11px' },
         '@media (max-width:1100px)': { fontSize: '10px' },
@@ -60,7 +67,34 @@ const Navbar = () => {
 
     const navLinks: NavLink[] = [
         { text: 'About us', href: '/about' },
-        { text: 'Our products', href: '/products' },
+        {
+            text: 'Our products',
+            href: '/products',
+            image: '/images/overview.jpg',
+            subItems: [
+                { text: 'Shop all', href: '/products' },
+                {
+                    text: 'Portable fan',
+                    href: '/products/portable-fan',
+                    image: '/images/preview.jpg', 
+                    subItems: [
+                        { text: 'All', href: '/products/portable-fan' },
+                        { text: 'Handheld fan', href: '/products/portable-fan/handheld' },
+                        { text: 'Cyclone fan', href: '/products/portable-fan/cyclone' },
+                        { text: 'Slide fan', href: '/products/portable-fan/slide' },
+                        { text: 'Table fan', href: '/products/portable-fan/table' },
+                        { text: 'Stand fan', href: '/products/portable-fan/stand' },
+                        { text: 'Tower fan', href: '/products/portable-fan/tower' },
+                    ]
+                },
+                { text: 'Ventilation fan', href: '/products/ventilation-fan' },
+                { text: 'Industrial fan', href: '/products/industrial-fan' },
+                { text: 'Installation fan', href: '/products/installation-fan' },
+                { text: 'Air cooler', href: '/products/air-cooler' },
+                { text: 'Air purifier', href: '/products/air-purifier' },
+                { text: 'Spare parts', href: '/products/spare-parts' },
+            ]
+        },
         { text: 'Warranty & services', href: '/services' },
         { text: 'Distributor partners', href: '/partners' },
         { text: 'Contact us', href: '/contact' }
@@ -89,124 +123,6 @@ const Navbar = () => {
             </Box>
         </Link>
     );
-    const drawerContent = (
-        <Box
-            height="100%"
-            display="flex"
-            flexDirection="column"
-            p={3}
-            bgcolor="#fff"
-        >
-            <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-                mb={2}
-            >
-                <Logo />
-                <Stack direction="row" spacing={1} alignItems="center">
-                    <IconButton size="small" sx={{ color: textColor }}>
-                        <ShoppingCartOutlinedIcon fontSize="small" />
-                    </IconButton>
-                    <Divider
-                        orientation="vertical"
-                        sx={{
-                            height: '20px',
-                            mx: 1,
-                            alignSelf: 'center',
-                            bgcolor: '#e0e0e0'
-                        }}
-                    />
-                    <IconButton onClick={handleDrawerToggle} sx={{ color: textColor, p: 0.5 }}>
-                        <CloseIcon />
-                    </IconButton>
-                </Stack>
-            </Box>
-
-            <List sx={{ m: 0, flexGrow: 1 }}>
-                {navLinks.map((item) => {
-                    const isActive = pathname === item.href;
-
-                    return (
-                        <ListItem key={item.text} disablePadding>
-                            <Link href={item.href} passHref legacyBehavior>
-                                <ListItemButton
-                                    component="a"
-                                    onClick={handleDrawerToggle}
-                                    sx={{
-                                        p: 0,
-                                        bgcolor: 'transparent',
-                                        transition: 'all 0.6s',
-                                        '&:hover': {
-                                            bgcolor: 'transparent',
-                                            '& .MuiTypography-root': {
-                                                color: activeColor
-                                            }
-                                        },
-                                    }}
-                                >
-                                    <ListItemText
-                                        primary={item.text}
-                                        primaryTypographyProps={{
-                                            variant: 'buttonL',
-                                            fontWeight: 600,
-                                            color: isActive || item.isHighlight ? activeColor : textColor,
-                                        }}
-                                    />
-                                    {(isActive || item.isHighlight) && <ChevronRightIcon sx={{ color: activeColor }} />}
-                                </ListItemButton>
-                            </Link>
-                        </ListItem>
-                    );
-                })}
-            </List>
-
-            <Box
-                display="flex"
-                flexDirection="column"
-                gap="24px"
-                mt="auto"
-                pb={2}
-            >
-                <Link href="/login" passHref legacyBehavior>
-                    <Typography
-                        variant="buttonS"
-                        component="a"
-                        display="block"
-                        color="#383B44"
-                        whiteSpace="nowrap"
-                        sx={{
-                            textDecoration: 'none',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        LOG IN / SIGN UP
-                    </Typography>
-                </Link>
-                <Stack direction="row" spacing={0.5} alignItems="center">
-                    <Typography
-                        variant="buttonS"
-                        onClick={() => handleLanguageChange('th')}
-                        color={currentLang === 'th' ? activeColor : textColor}
-                        sx={{ cursor: 'pointer' }}
-                    >
-                        TH
-                    </Typography>
-
-                    <Typography variant="buttonS" color={brandColor}>/</Typography>
-
-                    <Typography
-                        variant="buttonS"
-                        onClick={() => handleLanguageChange('en')}
-                        color={currentLang === 'en' ? activeColor : textColor}
-                        sx={{ cursor: 'pointer' }}
-                    >
-                        EN
-                    </Typography>
-                </Stack>
-            </Box>
-        </Box >
-    );
 
     return (
         <>
@@ -222,7 +138,11 @@ const Navbar = () => {
                         borderRadius={999}
                         px={4}
                         py={2}
-                        boxShadow="0px 4px 20px rgba(0,0,0,0.05)"
+                        boxShadow={
+                            mobileOpen
+                                ? "none"
+                                : "0px 1px 20px rgba(0,0,0,0.05)"
+                        }
                         display="flex"
                         alignItems="center"
                         justifyContent="space-between"
@@ -230,6 +150,8 @@ const Navbar = () => {
                         sx={{
                             pointerEvents: 'auto',
                             transition: 'all 0.3s ease',
+                            position: 'relative',
+                            zIndex: 1300
                         }}
                     >
                         {/* LEFT: LOGO */}
@@ -242,6 +164,7 @@ const Navbar = () => {
                             display={{ xs: 'none', md: 'flex' }}
                             alignItems="center"
                             height="100%"
+                            flexShrink={0}
                         >
                             {navLinks.map((item) => (
                                 <Link key={item.text} href={item.href} passHref style={{ display: 'flex', alignItems: 'center' }}>
@@ -266,12 +189,16 @@ const Navbar = () => {
                         <Stack
                             direction="row"
                             alignItems="center"
-                            sx={{ display: { xs: 'none', md: 'flex' } }}
-                            gap="4px"
+                            sx={{
+                                display: { xs: 'none', md: 'flex' },
+                                flexShrink: 0,      
+                                whiteSpace: 'nowrap' 
+                            }}
+                            spacing={1}
                         >
                             {/* Group: Log in / Sign up */}
                             <Stack direction="row" alignItems="center" spacing={0.5}>
-                                <Link href="/login" passHref legacyBehavior>
+                                <Link href="/login" passHref>
                                     <Typography
                                         component="a"
                                         variant="buttonS"
@@ -323,7 +250,12 @@ const Navbar = () => {
                             />
 
                             <IconButton size="small" sx={{ color: '#333', p: 0.5 }}>
-                                <ShoppingCartOutlinedIcon sx={{ fontSize: { md: '1.1rem', lg: '1.25rem' } }} />
+                                <Image
+                                    src="/icons/Variant2.svg"
+                                    alt="Cart"
+                                    width={20}
+                                    height={20}
+                                />
                             </IconButton>
 
                             <Divider
@@ -341,7 +273,7 @@ const Navbar = () => {
                                     variant="buttonS"
                                     onClick={() => handleLanguageChange('th')}
                                     color={currentLang === 'th' ? activeColor : textColor}
-                                    sx={{ cursor: 'pointer' }}
+                                    sx={{ cursor: 'pointer', ...responsiveFontStyles }}
                                 >
                                     TH
                                 </Typography>
@@ -352,7 +284,7 @@ const Navbar = () => {
                                     variant="buttonS"
                                     onClick={() => handleLanguageChange('en')}
                                     color={currentLang === 'en' ? activeColor : textColor}
-                                    sx={{ cursor: 'pointer' }}
+                                    sx={{ cursor: 'pointer', ...responsiveFontStyles }}
                                 >
                                     EN
                                 </Typography>
@@ -367,7 +299,12 @@ const Navbar = () => {
                             display={{ xs: 'flex', md: 'none' }}
                         >
                             <IconButton sx={{ color: '#333', p: 0 }}>
-                                <ShoppingCartOutlinedIcon sx={{ fontSize: 20 }} />
+                                <Image
+                                    src="/icons/Variant2.svg"
+                                    alt="Cart"
+                                    width={20}
+                                    height={20}
+                                />
                             </IconButton>
 
                             <Divider
@@ -379,32 +316,47 @@ const Navbar = () => {
                                 }}
                             />
 
-
-                            <IconButton onClick={handleDrawerToggle} sx={{ color: '#333', p: 0 }}>
-                                <MenuIcon sx={{ fontSize: 20 }} />
+                            <IconButton onClick={handleDrawerToggle} sx={{ color: textColor, p: 0 }}>
+                                {mobileOpen ? <CloseIcon sx={{ fontSize: 24 }} /> : <MenuIcon sx={{ fontSize: 24 }} />}
                             </IconButton>
                         </Stack>
+                    </Box>
 
+                    {/* --- MOBILE DROPDOWN MENU --- */}
+                    <Box
+                        sx={{
+                            pointerEvents: 'auto',
+                            position: 'relative',
+                            zIndex: 1200
+                        }}
+                    >
+                        <Collapse in={mobileOpen} timeout="auto" unmountOnExit>
+                            <Box
+                                sx={{
+                                    bgcolor: '#fff',
+                                    borderRadius: '0 0 24px 24px',
+                                    boxShadow: '0px 10px 20px rgba(0,0,0,0.05)',
+                                    mt: '-2px'
+                                }}
+                                maxHeight="calc(100vh - 100px)"
+                                overflow="auto"
+                            >
+                                <NavbarMobile
+                                    onClose={handleDrawerToggle}
+                                    open={mobileOpen}
+                                    navLinks={navLinks}
+                                    Logo={Logo}
+                                    brandColor={brandColor}
+                                    activeColor={activeColor}
+                                    textColor={textColor}
+                                    currentLang={currentLang}
+                                    onLanguageChange={handleLanguageChange}
+                                />
+                            </Box>
+                        </Collapse>
                     </Box>
                 </Container>
             </AppBar>
-
-            <Drawer
-                variant="temporary"
-                anchor="right"
-                open={mobileOpen}
-                onClose={handleDrawerToggle}
-                ModalProps={{ keepMounted: true }}
-                sx={{
-                    display: { xs: 'block', md: 'none' },
-                    '& .MuiDrawer-paper': {
-                        boxSizing: 'border-box',
-                        width: '100%',
-                    },
-                }}
-            >
-                {drawerContent}
-            </Drawer>
         </>
     );
 };
