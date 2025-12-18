@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
@@ -12,11 +12,15 @@ import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery'
+import Fade from '@mui/material/Fade';
 
 // Icons
 import MenuIcon from '@mui/icons-material/Menu';
 import Image from 'next/image';
-import { SxProps } from '@mui/material';
+import { List, ListItem, ListItemButton, ListItemText, SxProps } from '@mui/material';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
 import { Theme } from '@emotion/react';
 import { usePathname } from 'next/navigation';
 import NavbarMobile from './navbar-mobile';
@@ -31,17 +35,35 @@ interface NavLink {
 
 const Navbar = () => {
     const pathname = usePathname();
+
+    // State Mobile Menu
     const [mobileOpen, setMobileOpen] = useState(false);
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+
+    // State Desktop Menu
+    const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
+    const handleDesktopMenuToggle = (e?: React.MouseEvent) => {
+        if (e) e.preventDefault();
+        setDesktopMenuOpen((prev) => !prev);
+    };
+
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
     useEffect(() => {
-        if (isDesktop && mobileOpen) {
-            setMobileOpen(false);
+        if (isDesktop) {
+            if (mobileOpen) {
+                setMobileOpen(false);
+                setDesktopMenuOpen(true);
+            }
+        } else {
+            if (desktopMenuOpen) {
+                setDesktopMenuOpen(false);
+                setMobileOpen(true);
+            }
         }
-    }, [isDesktop, mobileOpen]);
+    }, [isDesktop, mobileOpen, desktopMenuOpen]);
 
     //Lang
     const [currentLang, setCurrentLang] = useState<'th' | 'en'>('en');
@@ -65,6 +87,7 @@ const Navbar = () => {
         '@media (max-width:972px)': { fontSize: '9px' },
     };
 
+    // mockup data
     const navLinks: NavLink[] = [
         { text: 'About us', href: '/about' },
         {
@@ -76,10 +99,10 @@ const Navbar = () => {
                 {
                     text: 'Portable fan',
                     href: '/products/portable-fan',
-                    image: '/images/preview.jpg', 
+                    image: '/images/preview.jpg',
                     subItems: [
-                        { text: 'All', href: '/products/portable-fan' },
-                        { text: 'Handheld fan', href: '/products/portable-fan/handheld' },
+                        { text: 'All', href: '/products/portable-fan', image: '/images/preview.jpg' },
+                        { text: 'Handheld fan', href: '/products/portable-fan/handheld', image: '/images/product.png' },
                         { text: 'Cyclone fan', href: '/products/portable-fan/cyclone' },
                         { text: 'Slide fan', href: '/products/portable-fan/slide' },
                         { text: 'Table fan', href: '/products/portable-fan/table' },
@@ -124,6 +147,145 @@ const Navbar = () => {
         </Link>
     );
 
+    // --- Desktop Menu Component ---
+    const DesktopMenu = ({ isOpen, items, }: {
+        isOpen: boolean;
+        items?: NavLink[];
+    }) => {
+        const [activeModel, setActiveModel] = useState<NavLink | null>(null);
+        const [activeType, setActiveType] = useState<NavLink | null>(null);
+
+        useEffect(() => {
+            if (isOpen && items && items.length > 0 && !activeModel) {
+                setActiveModel(items[1]);
+            }
+        }, [isOpen, items]);
+
+        const currentImage = activeType?.image || activeModel?.image || '/images/overview.jpg';
+
+        if (!items) return null;
+
+        return (
+            <Fade in={isOpen} timeout={500}>
+                <Box
+                    top="100%"
+                    left={0}
+                    right={0}
+                    mt={1.5}
+                    bgcolor="white"
+                    borderRadius="24px"
+                    boxShadow="0px 10px 40px rgba(0,0,0,0.08)"
+                    p={4}
+                    zIndex={1400}
+                    display={isOpen ? 'flex' : 'none'}
+                    minHeight="450px"
+                    width="100%"
+                >
+                    {/* Column 1: PRODUCT MODEL */}
+                    <Box
+                        width={{ xs: '25%', xl: '305px' }}
+                        minWidth="200px"
+                        pr={2}
+                    >
+                        <Typography variant="subtitle2" color="text.secondary" mb={2} fontWeight={700}>
+                            PRODUCT MODEL
+                        </Typography>
+                        <List disablePadding>
+                            {items.map((item) => {
+                                const isActive = activeModel?.text === item.text;
+                                const hasSub = item.subItems && item.subItems.length > 0;
+                                return (
+                                    <ListItem key={item.text} disablePadding sx={{ mb: 1 }}>
+                                        <Link href={item.href} passHref style={{ textDecoration: 'none', width: '100%' }}>
+                                            <ListItemButton
+                                                onMouseEnter={() => {
+                                                    setActiveModel(item);
+                                                    setActiveType(null);
+                                                }}
+                                                sx={{
+                                                    p: 0,
+                                                    bgcolor: 'transparent',
+                                                    '&:hover': { bgcolor: 'transparent' },
+                                                    whiteSpace: 'normal'
+                                                }}
+                                            >
+                                                <ListItemText
+                                                    primary={item.text}
+                                                    primaryTypographyProps={{
+                                                        variant: 'buttonM',
+                                                        color: isActive ? '#2962ff' : '#383B44'
+                                                    }}
+                                                />
+                                                {hasSub && <ChevronRightIcon sx={{ color: isActive ? '#2962ff' : '#383B44', fontSize: 20 }} />}
+                                            </ListItemButton>
+                                        </Link>
+                                    </ListItem>
+                                );
+                            })}
+                        </List>
+                    </Box>
+
+                    {/* Column 2: PRODUCT TYPE */}
+                    <Box
+                        width={{ xs: '40%', xl: '561px' }}
+                        minWidth="300px"
+                        px={4}
+                        borderLeft="1px solid #eee"
+                    >
+                        <Typography variant="subtitle2" color="text.secondary" mb={2} fontWeight={700}>
+                            PRODUCT TYPE
+                        </Typography>
+                        {activeModel?.subItems ? (
+                            <List disablePadding>
+                                {activeModel.subItems.map((subItem) => {
+                                    const isActive = activeType?.text === subItem.text;
+                                    return (
+                                        <ListItem key={subItem.text} disablePadding sx={{ mb: 1 }}>
+                                            <Link href={subItem.href} passHref style={{ textDecoration: 'none', width: '100%' }}>
+
+                                                <ListItemButton
+                                                    onMouseEnter={() => setActiveType(subItem)}
+                                                    sx={{ p: 0, bgcolor: 'transparent', '&:hover': { bgcolor: 'transparent' } }}
+                                                >
+                                                    <ListItemText
+                                                        primary={subItem.text}
+                                                        primaryTypographyProps={{
+                                                            variant: 'buttonM',
+                                                            color: isActive ? '#2962ff' : '#383B44'
+                                                        }}
+                                                    />
+                                                </ListItemButton>
+                                            </Link>
+                                        </ListItem>
+                                    );
+                                })}
+                            </List>
+                        ) : (
+                            <Typography variant="body2" color="text.secondary">No options available</Typography>
+                        )}
+                    </Box>
+
+                    {/* Column 3: IMAGE PREVIEW  */}
+                    <Box
+                        flexGrow={1}
+                        position="relative"
+                        borderRadius="16px"
+                        overflow="hidden"
+                        bgcolor="#f9f9f9"
+                    >
+                        <Image
+                            src={currentImage}
+                            alt="Product Preview"
+                            fill
+                            style={{ objectFit: "cover" }}
+                            key={currentImage}
+                        />
+                    </Box>
+                </Box>
+            </Fade>
+        );
+    };
+
     return (
         <>
             <AppBar
@@ -166,23 +328,57 @@ const Navbar = () => {
                             height="100%"
                             flexShrink={0}
                         >
-                            {navLinks.map((item) => (
-                                <Link key={item.text} href={item.href} passHref style={{ display: 'flex', alignItems: 'center' }}>
-                                    <Typography
-                                        component="a"
-                                        variant="buttonS"
-                                        color="#444"
-                                        textTransform="uppercase"
-                                        sx={{
-                                            textDecoration: 'none',
-                                            '&:hover': { color: brandColor },
-                                            ...responsiveFontStyles,
-                                        }}
-                                    >
-                                        {item.text}
-                                    </Typography>
-                                </Link>
-                            ))}
+                            {navLinks.map((item) => {
+                                const isOurProduct = item.text === 'Our products';
+                                const hasSub = item.subItems && item.subItems.length > 0;
+                                const isOpen = isOurProduct && desktopMenuOpen;
+                                return (
+                                    <Link
+                                        key={item.text}
+                                        onClick={isOurProduct ? handleDesktopMenuToggle : undefined}
+                                        href={item.href}
+                                        passHref
+                                        style={{ display: 'flex', alignItems: 'center' }}>
+                                        <Stack
+                                            direction="row"
+                                            alignItems="center"
+                                            spacing={0.5}
+                                            sx={{
+                                                cursor: 'pointer',
+                                                '&:hover .menu-text': { color: brandColor }, // Effect เปลี่ยนสี Text
+                                                '&:hover .menu-icon': { color: brandColor }  // Effect เปลี่ยนสี Icon
+                                            }}
+                                        >
+                                            <Typography
+                                                component="a"
+                                                variant="buttonS"
+                                                color="#444"
+                                                textTransform="uppercase"
+                                                sx={{
+                                                    textDecoration: 'none',
+                                                    '&:hover': { color: brandColor },
+                                                    ...responsiveFontStyles,
+                                                }}
+                                            >
+                                                {item.text}
+                                            </Typography>
+
+                                            {/* แสดง Icon SubItems */}
+                                            {hasSub && (
+                                                <KeyboardArrowDownIcon
+                                                    className="menu-icon"
+                                                    sx={{
+                                                        fontSize: 16,
+                                                        color: '#444',
+                                                        transition: 'transform 0.3s ease, color 0.2s',
+                                                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                                                    }}
+                                                />
+                                            )}
+                                        </Stack>
+                                    </Link>
+                                )
+                            })}
                         </Stack>
 
                         {/* RIGHT: ACTIONS */}
@@ -191,8 +387,8 @@ const Navbar = () => {
                             alignItems="center"
                             sx={{
                                 display: { xs: 'none', md: 'flex' },
-                                flexShrink: 0,      
-                                whiteSpace: 'nowrap' 
+                                flexShrink: 0,
+                                whiteSpace: 'nowrap'
                             }}
                             spacing={1}
                         >
@@ -322,6 +518,15 @@ const Navbar = () => {
                         </Stack>
                     </Box>
 
+
+                    {/* --- DESKTOP DROPDOWN MENU --- */}
+                    <Box sx={{ pointerEvents: 'auto' }}>
+                        <DesktopMenu
+                            isOpen={desktopMenuOpen}
+                            items={navLinks.find(n => n.text === 'Our products')?.subItems}
+                        />
+                    </Box>
+
                     {/* --- MOBILE DROPDOWN MENU --- */}
                     <Box
                         sx={{
@@ -356,7 +561,7 @@ const Navbar = () => {
                         </Collapse>
                     </Box>
                 </Container>
-            </AppBar>
+            </AppBar >
         </>
     );
 };
