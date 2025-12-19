@@ -1,25 +1,14 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import AppBar from '@mui/material/AppBar';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Container from '@mui/material/Container';
-import Collapse from '@mui/material/Collapse';
-import CloseIcon from '@mui/icons-material/Close';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery'
+import { AppBar, Typography, Box, Stack, Divider, IconButton, Container, Collapse, useTheme, useMediaQuery, SxProps } from '@mui/material';
+import { Theme } from '@emotion/react';
+import NavbarMobile from './navbar-mobile';
 
 // Icons
+import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
 import Image from 'next/image';
-import { SxProps } from '@mui/material';
-import { Theme } from '@emotion/react';
-import { usePathname } from 'next/navigation';
-import NavbarMobile from './navbar-mobile';
 
 interface NavLink {
     text: string;
@@ -29,42 +18,26 @@ interface NavLink {
     subItems?: NavLink[];
 }
 
+//constant
+const brandColor = '#1a237e';
+const activeColor = '#2962ff';
+const textColor = '#383B44';
+const responsiveFontStyles: SxProps<Theme> = {
+    whiteSpace: 'nowrap',
+    cursor: 'pointer',
+    lineHeight: 1,
+    '@media (max-width:1283px)': { fontSize: '12px' },
+    '@media (max-width:1200px)': { fontSize: '11px' },
+    '@media (max-width:1100px)': { fontSize: '10px' },
+    '@media (max-width:972px)': { fontSize: '9px' },
+};
+
 const Navbar = () => {
-    const pathname = usePathname();
+    //constant hook
     const [mobileOpen, setMobileOpen] = useState(false);
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-    useEffect(() => {
-        if (isDesktop && mobileOpen) {
-            setMobileOpen(false);
-        }
-    }, [isDesktop, mobileOpen]);
-
-    //Lang
     const [currentLang, setCurrentLang] = useState<'th' | 'en'>('en');
-    const handleLanguageChange = (lang: 'th' | 'en') => {
-        setCurrentLang(lang);
-    };
-
-    // Constants
-    const brandColor = '#1a237e';
-    const activeColor = '#2962ff';
-    const textColor = '#383B44';
-
-    // Style
-    const responsiveFontStyles: SxProps<Theme> = {
-        whiteSpace: 'nowrap',
-        cursor: 'pointer',
-        lineHeight: 1,
-        '@media (max-width:1283px)': { fontSize: '12px' },
-        '@media (max-width:1200px)': { fontSize: '11px' },
-        '@media (max-width:1100px)': { fontSize: '10px' },
-        '@media (max-width:972px)': { fontSize: '9px' },
-    };
-
     const navLinks: NavLink[] = [
         { text: 'About us', href: '/about' },
         {
@@ -76,7 +49,7 @@ const Navbar = () => {
                 {
                     text: 'Portable fan',
                     href: '/products/portable-fan',
-                    image: '/images/preview.jpg', 
+                    image: '/images/preview.jpg',
                     subItems: [
                         { text: 'All', href: '/products/portable-fan' },
                         { text: 'Handheld fan', href: '/products/portable-fan/handheld' },
@@ -99,6 +72,21 @@ const Navbar = () => {
         { text: 'Distributor partners', href: '/partners' },
         { text: 'Contact us', href: '/contact' }
     ];
+
+    //function
+    useEffect(() => {
+        if (isDesktop && mobileOpen) {
+            setMobileOpen(false);
+        }
+    }, [isDesktop, mobileOpen]);
+
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen);
+    };
+
+    const handleLanguageChange = (lang: 'th' | 'en') => {
+        setCurrentLang(lang);
+    };
 
     const Logo = () => (
         <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
@@ -191,8 +179,8 @@ const Navbar = () => {
                             alignItems="center"
                             sx={{
                                 display: { xs: 'none', md: 'flex' },
-                                flexShrink: 0,      
-                                whiteSpace: 'nowrap' 
+                                flexShrink: 0,
+                                whiteSpace: 'nowrap'
                             }}
                             spacing={1}
                         >
