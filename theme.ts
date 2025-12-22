@@ -160,11 +160,11 @@ const theme = createTheme({
 
     // --- Buttons & Labels ---
     buttonL: {
-      fontSize: '28px', lineHeight: '36px',
+      fontSize: '16px', lineHeight: '36px',
       fontFamily: 'Roboto, Arial, sans-serif',
       fontWeight: 500,
       textTransform: 'none',
-      '@media (min-width:900px)': { fontSize: '40px', lineHeight: '48px' },
+      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '48px' },
     },
     buttonM: {
       fontSize: '16px', lineHeight: '24px',
