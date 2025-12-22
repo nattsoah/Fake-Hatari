@@ -1,20 +1,13 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Typography from '@mui/material/Typography';
+import { Box, Stack, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 // Icons
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-
-import { usePathname } from 'next/navigation';
 
 export interface NavLink {
     text: string;
@@ -48,14 +41,6 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({
     const pathname = usePathname();
     const [activeSubMenu, setActiveSubMenu] = useState<NavLink | null>(null);
     const [activeNestedMenu, setActiveNestedMenu] = useState<NavLink | null>(null);
-
-    useEffect(() => {
-        if (!open) {
-            setActiveSubMenu(null);
-            setActiveNestedMenu(null);
-        }
-    }, [open]);
-
     const BackHeader = ({ text, onClick }: { text: string, onClick: () => void }) => (
         <Box px={3} pt={3} pb={2} display="flex" alignItems="center" bgcolor="#fff" flexShrink={0}>
             <Stack direction="row" spacing={1} alignItems="center" onClick={onClick} sx={{ cursor: 'pointer', color: activeColor }}>
@@ -65,6 +50,12 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({
         </Box>
     );
 
+    useEffect(() => {
+        if (!open) {
+            setActiveSubMenu(null);
+            setActiveNestedMenu(null);
+        }
+    }, [open]);
     return (
         <Box
             minHeight="90vh"
