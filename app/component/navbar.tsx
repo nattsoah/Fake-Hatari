@@ -278,15 +278,17 @@ const Navbar = () => {
             >
                 <Container maxWidth={false}>
                     <Box
-                        bgcolor={{ "xs": 'rgba(255, 255, 255, 0.3)', "md": 'rgba(255, 255, 255, 0.9)' }}
-                        borderRadius={999}
+                        bgcolor={
+                            mobileOpen
+                                ? '#fff'
+                                : {
+                                    xs: 'rgba(255, 255, 255, 0.3)',
+                                    md: 'rgba(255, 255, 255, 0.9)'
+                                }
+                        } 
+                        borderRadius={mobileOpen ? "30px 30px 0px 0px" : "50px"}
                         px={4}
                         py={2}
-                        boxShadow={
-                            mobileOpen
-                                ? "none"
-                                : "0px 1px 20px rgba(0,0,0,0.05)"
-                        }
                         display="flex"
                         alignItems="center"
                         justifyContent="space-between"
