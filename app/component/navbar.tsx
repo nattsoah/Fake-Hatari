@@ -285,7 +285,7 @@ const Navbar = () => {
                                     xs: 'rgba(255, 255, 255, 0.3)',
                                     md: 'rgba(255, 255, 255, 0.9)'
                                 }
-                        } 
+                        }
                         borderRadius={mobileOpen ? "30px 30px 0px 0px" : "50px"}
                         px={4}
                         py={2}
@@ -378,7 +378,7 @@ const Navbar = () => {
                         >
                             {/* Group: Log in / Sign up */}
                             <Stack direction="row" alignItems="center" spacing={0.5}>
-                                <Link href="/login" passHref>
+                                <Link href="/login" passHref style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                                     <Typography
                                         component="a"
                                         variant="buttonS"
@@ -403,7 +403,7 @@ const Navbar = () => {
                                     /
                                 </Typography>
 
-                                <Link href="/signup" passHref>
+                                <Link href="/signup" passHref style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                                     <Typography
                                         component="a"
                                         variant="buttonS"

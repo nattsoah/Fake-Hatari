@@ -109,7 +109,7 @@ const BannerSlider = () => {
                             {/* --- Content Overlay --- */}
                             <Container maxWidth="xl">
                                 <Box
-                                    maxWidth={{ xs: "328px", md: "646px" }}
+                                    maxWidth={{ xs: "328px", sm: "500px" , md: "646px" }}
                                     padding={{ xs: 2, md: 4 }}
                                     color="#000"
                                     textAlign="left"
