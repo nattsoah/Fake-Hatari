@@ -38,6 +38,7 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({
     onLanguageChange,
     open
 }) => {
+    //contant hook
     const pathname = usePathname();
     const [activeSubMenu, setActiveSubMenu] = useState<NavLink | null>(null);
     const [activeNestedMenu, setActiveNestedMenu] = useState<NavLink | null>(null);
