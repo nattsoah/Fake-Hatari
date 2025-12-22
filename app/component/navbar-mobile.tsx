@@ -57,7 +57,6 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({
             setActiveNestedMenu(null);
         }
     }, [open]);
-
     return (
         <Box
             minHeight="90vh"
