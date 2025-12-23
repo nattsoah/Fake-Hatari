@@ -3,34 +3,25 @@ import { Box, Typography, Container, Grid } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image';
 
-interface ProductItem {
+/* Types */
+export type HighlightProductItem = {
     id: number;
     name: string;
     image: string;
     link: string;
-}
-
-// mockup data
-const data = {
-    title: 'HARNESSING\nTHE WIND OF CHANGE',
-    description: 'Lorem ipsum dolor sit amet consectetur. Auctor sociis dui aenean et. Diam lorem vel enim duis magna. Leo malesuada vulputate lectus nisl turpis lacus mus etiam. Gravida aliquam augue vulputate feugiat pellentesque.',
-    products: [
-        {
-            id: 1,
-            name: 'Portable fan',
-            image: '/images/products/Portable-fan.png',
-            link: '/portable-fan',
-        },
-        {
-            id: 2,
-            name: 'Installation fan',
-            image: '/images/products/Installation-fan.png',
-            link: '/installation-fan',
-        },
-    ]
 };
 
-const HighlightCategory = () => {
+export type HighlightCategoryData = {
+    title: string;
+    description: string;
+    products: HighlightProductItem[];
+};
+
+type HighlightCategoryProps = {
+    data: HighlightCategoryData;
+};
+
+const HighlightCategory = ({ data }: HighlightCategoryProps) => {
     return (
         <Box maxWidth="1440px" mx="auto" px={{ xs: 2, md: 4 }} py={8}>
             {/* Header Section */}

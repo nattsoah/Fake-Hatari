@@ -1,10 +1,9 @@
-import { Typography } from "@mui/material";
-import HighlightCategory from "./content/home/hightlight-category";
+import HomePage from "./home/page";
 
 export default function Home() {
   return (
     <>
-      <HighlightCategory />
+      <HomePage />
     </>
   );
 }
