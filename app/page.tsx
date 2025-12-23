@@ -1,10 +1,10 @@
-import { Container, Typography } from "@mui/material";
-import BannerSlider from "./component/hero-banner";
+import { Container } from "@mui/material";
+import HomePage from "./content/home/page";
 
 export default function Home() {
   return (
     <Container maxWidth={"xl"} disableGutters>
-      <BannerSlider />
+      <HomePage />
     </Container>
   );
 }
