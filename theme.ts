@@ -66,8 +66,8 @@ const theme = createTheme({
       '@media (min-width:900px)': { fontSize: '40px', lineHeight: '48px' },
     },
     h3: { // Heading 3
-      fontSize: '18px', lineHeight: '24px',
-      '@media (min-width:900px)': { fontSize: '32px', lineHeight: '40px' },
+      fontSize: '24px', lineHeight: '32px', 
+      '@media (min-width:900px)': { fontSize: '40px', lineHeight: '48px' },
     },
     h4: { // Heading 4
       fontSize: '16px', lineHeight: '24px',
