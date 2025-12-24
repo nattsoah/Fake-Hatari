@@ -101,7 +101,7 @@ const theme = createTheme({
       fontSize: '10px', lineHeight: '16px',
       fontFamily: 'Roboto, Arial, sans-serif',
       fontWeight: 400,
-      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '24px' },
+      '@media (min-width:900px)': { fontSize: '12px', lineHeight: '20px' },
     },
 
     // --- Body (Body 1 & 2 are standard, added 3 & 4) ---
@@ -110,14 +110,14 @@ const theme = createTheme({
       '@media (min-width:900px)': { fontSize: '16px', lineHeight: '24px' },
     },
     body2: { // Body 2
-      fontSize: '12px', lineHeight: '20px',
-      '@media (min-width:900px)': { fontSize: '14px', lineHeight: '20px' },
+      fontSize: '14px', lineHeight: '20px',
+      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '24px' },
     },
     body3: {
       fontSize: '14px', lineHeight: '20px',
       fontFamily: 'Roboto, Arial, sans-serif',
       fontWeight: 400,
-      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '20px' },
+      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '24px' },
     },
     body4: {
       fontSize: '12px', lineHeight: '20px',
@@ -173,7 +173,7 @@ const theme = createTheme({
       '@media (min-width:900px)': { fontSize: '20px', lineHeight: '28px' },
     },
     buttonS: {
-      fontSize: '14px', lineHeight: '20px',
+      fontSize: '12px', lineHeight: '20px',
       fontFamily: 'Roboto, Arial, sans-serif',
       fontWeight: 500,
       '@media (min-width:900px)': { fontSize: '14px', lineHeight: '20px' },
