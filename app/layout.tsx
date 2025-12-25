@@ -4,6 +4,7 @@ import "./globals.css";
 import ClientThemeProvider from "./ClientThemeProvider";
 import Navbar from "./component/navbar";
 import Footer from "./component/footer/footer";
+import { Roboto } from 'next/font/google';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,6 +14,11 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+export const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['100', '300', '400', '500', '700', '900'],
 });
 
 export const metadata: Metadata = {

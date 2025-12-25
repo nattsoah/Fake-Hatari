@@ -66,20 +66,20 @@ const theme = createTheme({
       '@media (min-width:900px)': { fontSize: '40px', lineHeight: '48px' },
     },
     h3: { // Heading 3
-      fontSize: '18px', lineHeight: '24px',
-      '@media (min-width:900px)': { fontSize: '32px', lineHeight: '40px' },
+      fontSize: '24px', lineHeight: '32px', 
+      '@media (min-width:900px)': { fontSize: '40px', lineHeight: '48px' },
     },
     h4: { // Heading 4
       fontSize: '16px', lineHeight: '24px',
       '@media (min-width:900px)': { fontSize: '28px', lineHeight: '40px' },
     },
     h5: { // Heading 5
-      fontSize: '14px', lineHeight: '20px',
-      '@media (min-width:900px)': { fontSize: '20px', lineHeight: '28px' },
+      fontSize: '24px', lineHeight: '32px',
+      '@media (min-width:900px)': { fontSize: '32px', lineHeight: '40px' },
     },
     h6: { // Heading 6
-      fontSize: '12px', lineHeight: '20px',
-      '@media (min-width:900px)': { fontSize: '18px', lineHeight: '24px' },
+      fontSize: '20px', lineHeight: '28px',
+      '@media (min-width:900px)': { fontSize: '28px', lineHeight: '40px' },
     },
 
     // --- Subtitles (Subtitle 1 & 2 are standard, added 3 & 4) ---
@@ -160,17 +160,17 @@ const theme = createTheme({
 
     // --- Buttons & Labels ---
     buttonL: {
-      fontSize: '16px', lineHeight: '36px',
-      fontFamily: 'Roboto, Arial, sans-serif',
-      fontWeight: 500,
-      textTransform: 'none',
-      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '48px' },
-    },
-    buttonM: {
       fontSize: '16px', lineHeight: '24px',
       fontFamily: 'Roboto, Arial, sans-serif',
       fontWeight: 500,
+      textTransform: 'none',
       '@media (min-width:900px)': { fontSize: '20px', lineHeight: '28px' },
+    },
+    buttonM: {
+      fontSize: '14px', lineHeight: '20px',
+      fontFamily: 'Roboto, Arial, sans-serif',
+      fontWeight: 500,
+      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '24px' },
     },
     buttonS: {
       fontSize: '12px', lineHeight: '20px',
