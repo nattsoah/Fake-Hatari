@@ -1,8 +1,20 @@
 'use client';
+import BrandIntroductionCard, { HeroData, } from "@/app/component/BrandIntroduction";
 import ContactCTASection from '@/app/component/ContactCTASection';
 import HeroProductCard, { HeroProduct, } from "@/app/component/HeroProductCard";
 import HighlightCategory, { HighlightCategoryData } from '@/app/component/hightlight-category';
 import BannerSlider, { BannerData, } from '@/app/component/hero-banner';
+
+/* MOCK DATA */
+const heroData: HeroData[] = [
+    {
+        backgroundImage: '/images/home/banner-4.png',
+        tagline: 'A well-known brand producing electric fans and appliances.',
+        buttonText: "Learn more",
+        buttonLink: '/about-us',
+        productImage: '',
+    }
+]
 
 // mockup data
 const CONTACT_CTA_DATA = {
@@ -86,6 +98,7 @@ const HomePage = () => {
             <HighlightCategory data={highlightCategoryData} />
             <HeroProductCard items={heroProducts} />
             <ContactCTASection data={CONTACT_CTA_DATA} />
+            <BrandIntroductionCard items={heroData} />
         </>
     );
 };
