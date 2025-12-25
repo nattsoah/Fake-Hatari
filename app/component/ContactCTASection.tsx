@@ -12,13 +12,11 @@ interface ContactCTAProps {
     imageSrc: string;
 }
 
-export default function ContactCTASection({
-    title,
-    description,
-    buttonText,
-    buttonLink,
-    imageSrc,
-}: ContactCTAProps) {
+interface ContactCTASectionProps {
+    data: ContactCTAProps;
+}
+
+export default function ContactCTASection({ data }: ContactCTASectionProps) {
     return (
         <Box
             component="section"
@@ -35,14 +33,14 @@ export default function ContactCTASection({
             >
                 {/* Left Column: Text */}
                 <Grid size={{ xs: 12, md: 6 }}>
-                    <Box display="flex" flexDirection="column" gap={{xs:"0px" , md:"16px"}} pr={{ md: 4 }} >
+                    <Box display="flex" flexDirection="column" gap={{ xs: "0px", md: "16px" }} pr={{ md: 4 }} >
                         <Typography
                             variant="h1"
                             mb={3}
                             textTransform="uppercase"
                             whiteSpace="pre-line"
                         >
-                            {title}
+                            {data.title}
                         </Typography>
 
                         <Typography
@@ -50,10 +48,10 @@ export default function ContactCTASection({
                             color="#212121"
                             mb={4}
                         >
-                            {description}
+                            {data.description}
                         </Typography>
 
-                        <Link href={buttonLink} passHref>
+                        <Link href={data.buttonLink} passHref>
                             <Button
                                 variant="contained"
                                 sx={{
@@ -69,7 +67,7 @@ export default function ContactCTASection({
                                     },
                                 }}
                             >
-                                <Typography variant="body1">{buttonText}</Typography>
+                                <Typography variant="body1">{data.buttonText}</Typography>
                             </Button>
                         </Link>
                     </Box>
@@ -82,13 +80,13 @@ export default function ContactCTASection({
                             position: 'relative',
                             width: '100%',
                             aspectRatio: '643 / 600',
-                            borderRadius: {xs:"12px" , md:"24px"},
+                            borderRadius: { xs: "12px", md: "24px" },
                             overflow: 'hidden',
                         }}
                     >
                         <Image
-                            src={imageSrc}
-                            alt={title}
+                            src={data.imageSrc}
+                            alt={data.title}
                             fill
                             style={{ objectFit: 'cover' }}
                             sizes="(max-width: 768px) 100vw, 50vw"
