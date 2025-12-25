@@ -117,7 +117,7 @@ const theme = createTheme({
       fontSize: '14px', lineHeight: '20px',
       fontFamily: 'Roboto, Arial, sans-serif',
       fontWeight: 400,
-      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '20px' },
+      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '24px' },
     },
     body4: {
       fontSize: '12px', lineHeight: '20px',

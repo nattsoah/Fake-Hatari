@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ClientThemeProvider from "./ClientThemeProvider";
 import Navbar from "./component/navbar";
+import Footer from "./component/footer/footer";
 import { Roboto } from 'next/font/google';
 
 const geistSans = Geist({
@@ -39,6 +40,7 @@ export default function RootLayout({
           <>
             <Navbar />
             {children}
+            <Footer />
           </>
         </ClientThemeProvider>
       </body>
