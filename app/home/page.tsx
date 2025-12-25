@@ -1,9 +1,39 @@
 'use client';
+import ArticlesSection from '@/app/component/ArticlesSection';
 import BrandIntroductionCard, { HeroData, } from "@/app/component/BrandIntroduction";
 import ContactCTASection from '@/app/component/ContactCTASection';
 import HeroProductCard, { HeroProduct, } from "@/app/component/HeroProductCard";
 import HighlightCategory, { HighlightCategoryData } from '@/app/component/hightlight-category';
 import BannerSlider, { BannerData, } from '@/app/component/hero-banner';
+
+// mockup data
+const mockArticles = {
+    sectionTitle: 'Harnessing The Wind of Change',
+    seeMoreLink: '/blog',
+    articles: [
+        {
+            thumbnail: '/images/home/slide-1.png',
+            category: 'Our blog',
+            date: 'May 15, 2024',
+            title: '5 Ways to Take Control of Your Health with Telemedicine',
+            link: '/blog/telemedicine',
+        },
+        {
+            thumbnail: '/images/home/slide-2.png',
+            category: 'Our blog',
+            date: 'May 15, 2024',
+            title: '5 Ways to Take Control of Your Health with Telemedicine',
+            link: '/blog/wind-change',
+        },
+        {
+            thumbnail: '/images/home/slide-3.png',
+            category: 'External Resources',
+            date: 'May 15, 2024',
+            title: '5 Ways to Take Control of Your Health with Telemedicine',
+            link: '/blog/cooling',
+        },
+    ],
+};
 
 /* MOCK DATA */
 const heroData: HeroData[] = [
@@ -99,6 +129,7 @@ const HomePage = () => {
             <HeroProductCard items={heroProducts} />
             <ContactCTASection data={CONTACT_CTA_DATA} />
             <BrandIntroductionCard items={heroData} />
+            <ArticlesSection data={mockArticles} />
         </>
     );
 };

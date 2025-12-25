@@ -101,7 +101,7 @@ const theme = createTheme({
       fontSize: '10px', lineHeight: '16px',
       fontFamily: 'Roboto, Arial, sans-serif',
       fontWeight: 400,
-      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '24px' },
+      '@media (min-width:900px)': { fontSize: '12px', lineHeight: '20px' },
     },
 
     // --- Body (Body 1 & 2 are standard, added 3 & 4) ---
@@ -160,17 +160,17 @@ const theme = createTheme({
 
     // --- Buttons & Labels ---
     buttonL: {
-      fontSize: '16px', lineHeight: '36px',
+      fontSize: '16px', lineHeight: '24px',
       fontFamily: 'Roboto, Arial, sans-serif',
       fontWeight: 500,
       textTransform: 'none',
-      '@media (min-width:900px)': { fontSize: '20px', lineHeight: '48px' },
+      '@media (min-width:900px)': { fontSize: '20px', lineHeight: '28px' },
     },
     buttonM: {
-      fontSize: '14px', lineHeight: '24px',
+      fontSize: '14px', lineHeight: '20px',
       fontFamily: 'Roboto, Arial, sans-serif',
       fontWeight: 500,
-      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '28px' },
+      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '24px' },
     },
     buttonS: {
       fontSize: '12px', lineHeight: '20px',
