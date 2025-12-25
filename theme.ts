@@ -66,8 +66,8 @@ const theme = createTheme({
       '@media (min-width:900px)': { fontSize: '40px', lineHeight: '48px' },
     },
     h3: { // Heading 3
-      fontSize: '18px', lineHeight: '24px',
-      '@media (min-width:900px)': { fontSize: '32px', lineHeight: '40px' },
+      fontSize: '24px', lineHeight: '32px', 
+      '@media (min-width:900px)': { fontSize: '40px', lineHeight: '48px' },
     },
     h4: { // Heading 4
       fontSize: '16px', lineHeight: '24px',
@@ -78,8 +78,8 @@ const theme = createTheme({
       '@media (min-width:900px)': { fontSize: '32px', lineHeight: '40px' },
     },
     h6: { // Heading 6
-      fontSize: '12px', lineHeight: '20px',
-      '@media (min-width:900px)': { fontSize: '18px', lineHeight: '24px' },
+      fontSize: '20px', lineHeight: '28px',
+      '@media (min-width:900px)': { fontSize: '28px', lineHeight: '40px' },
     },
 
     // --- Subtitles (Subtitle 1 & 2 are standard, added 3 & 4) ---
@@ -110,8 +110,8 @@ const theme = createTheme({
       '@media (min-width:900px)': { fontSize: '16px', lineHeight: '24px' },
     },
     body2: { // Body 2
-      fontSize: '12px', lineHeight: '20px',
-      '@media (min-width:900px)': { fontSize: '14px', lineHeight: '20px' },
+      fontSize: '14px', lineHeight: '20px',
+      '@media (min-width:900px)': { fontSize: '16px', lineHeight: '24px' },
     },
     body3: {
       fontSize: '14px', lineHeight: '20px',
@@ -173,7 +173,7 @@ const theme = createTheme({
       '@media (min-width:900px)': { fontSize: '16px', lineHeight: '24px' },
     },
     buttonS: {
-      fontSize: '14px', lineHeight: '20px',
+      fontSize: '12px', lineHeight: '20px',
       fontFamily: 'Roboto, Arial, sans-serif',
       fontWeight: 500,
       '@media (min-width:900px)': { fontSize: '14px', lineHeight: '20px' },
