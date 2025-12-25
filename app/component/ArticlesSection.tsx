@@ -1,8 +1,7 @@
 'use client';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Box, Typography, Button, Grid, Stack, useTheme } from '@mui/material';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { ArticleCard } from '@/app/component/ArticlesCard';
 
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -10,8 +9,8 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-// TYPES
-interface ArticleCardProps {
+// Article item
+export interface ArticleItem {
     thumbnail: string;
     category: string;
     date: string;
@@ -19,90 +18,20 @@ interface ArticleCardProps {
     link: string;
 }
 
-interface SectionProps {
+// Section data
+export interface ArticlesSectionData {
     sectionTitle: string;
-    articles: ArticleCardProps[];
+    articles: ArticleItem[];
     seeMoreLink: string;
 }
 
-function ArticleCard({ thumbnail, category, date, title, link, }: ArticleCardProps) {
-    return (
-        <Link href={link}>
-            <Box
-                height="100%"
-                display="flex"
-                flexDirection="column"
-                alignItems="flex-start"
-                gap="12px"
-                sx={{
-                    cursor: "pointer",
-                }}
-            >
-                {/* Thumbnail Image */}
-                <Box
-                    position="relative"
-                    width="100%"
-                    borderRadius={{ xs: "12px", md: "16px" }}
-                    overflow="hidden"
-                    mb={1}
-                    sx={{
-                        aspectRatio: '424 / 240',
-                        transition: "all 0.4s ease",
+// Props
+interface ArticlesSectionProps {
+    data: ArticlesSectionData;
+}
 
-                        '&:hover': {
-                            filter: 'brightness(0.8)',
-                        }
-                    }}
-                >
-                    <Image
-                        src={thumbnail}
-                        alt={title}
-                        fill
-                        style={{ objectFit: 'cover' }}
-                    />
-                </Box>
-
-                {/* Category & Date */}
-                <Stack direction="row" spacing={1} alignItems="center" mb={1}>
-                    <Typography variant="subtitle4" fontWeight={600} color="#2E44E3">
-                        {category}
-                    </Typography>
-                    <Typography variant="subtitle4" color="text.disabled">
-                        •
-                    </Typography>
-                    <Typography variant="subtitle4" fontWeight={600} color="#2E2E2E">
-                        {date}
-                    </Typography>
-                </Stack>
-
-                {/* Title */}
-                <Typography variant="buttonL" fontWeight={600} mb={1} flexGrow={1}>
-                    {title}
-                </Typography>
-
-                {/* Read More Link */}
-                <Button
-                    endIcon={<OpenInNewIcon sx={{ color: "#2E44E3" }} />}
-                    sx={{
-                        p: 0,
-                        mt: 'auto',
-                        textTransform: 'none',
-                        '&:hover': { backgroundColor: 'transparent' },
-                    }}
-                    disableRipple
-                >
-                    <Typography variant="buttonM" fontWeight={600} color="#2E44E3">Read more</Typography>
-                </Button>
-            </Box>
-        </Link>
-    );
-};
-
-// ----------------------------------------------------------------------
 // Articles Section
-// ----------------------------------------------------------------------
-function ArticlesSection({ sectionTitle, articles, seeMoreLink }: SectionProps) {
-    const theme = useTheme();
+function ArticlesSection({ data }: ArticlesSectionProps) {
     return (
         <Box maxWidth="1440px" mx="auto" component="section" px={{ xs: 2, md: 4 }} py={8}>
             {/* --- HEADER SECTION --- */}
@@ -119,7 +48,7 @@ function ArticlesSection({ sectionTitle, articles, seeMoreLink }: SectionProps) 
                     textTransform="uppercase"
                     fontWeight={600}
                 >
-                    {sectionTitle}
+                    {data.sectionTitle}
                 </Typography>
 
                 {/* Desktop Button */}
@@ -127,7 +56,7 @@ function ArticlesSection({ sectionTitle, articles, seeMoreLink }: SectionProps) 
                     <Button
                         variant="outlined"
                         component={Link}
-                        href={seeMoreLink}
+                        href={data.seeMoreLink}
                         sx={{
                             borderRadius: 50,
                             px: 3,
@@ -148,9 +77,9 @@ function ArticlesSection({ sectionTitle, articles, seeMoreLink }: SectionProps) 
             {/* Desktop: GRID LAYOUT */}
             <Box display={{ xs: 'none', md: 'block' }}>
                 <Grid container spacing={2}>
-                    {articles.map((article, index) => (
+                    {data.articles.map((article, index) => (
                         <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
-                            <ArticleCard {...article} />
+                            <ArticleCard data={article} />
                         </Grid>
                     ))}
                 </Grid>
@@ -172,9 +101,9 @@ function ArticlesSection({ sectionTitle, articles, seeMoreLink }: SectionProps) 
                         '--swiper-pagination-color': "#2E44E3"
                     } as React.CSSProperties}
                 >
-                    {articles.map((article, index) => (
+                    {data.articles.map((article, index) => (
                         <SwiperSlide key={index}>
-                            <ArticleCard {...article} />
+                            <ArticleCard data={article} />
                         </SwiperSlide>
                     ))}
                 </Swiper>
@@ -185,7 +114,7 @@ function ArticlesSection({ sectionTitle, articles, seeMoreLink }: SectionProps) 
                 <Button
                     variant="outlined"
                     component={Link}
-                    href={seeMoreLink}
+                    href={data.seeMoreLink}
                     sx={{
                         borderRadius: 50,
                         px: 3,
