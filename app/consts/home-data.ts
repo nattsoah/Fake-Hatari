@@ -1,13 +1,11 @@
-'use client';
-import ArticlesSection from '@/app/component/ArticlesSection';
-import BrandIntroductionCard, { HeroData, } from "@/app/component/BrandIntroduction";
-import ContactCTASection from '@/app/component/ContactCTASection';
-import HeroProductCard, { HeroProduct, } from "@/app/component/HeroProductCard";
-import HighlightCategory, { HighlightCategoryData } from '@/app/component/hightlight-category';
-import BannerSlider, { BannerData, } from '@/app/component/hero-banner';
+import { HeroData } from '@/app/component/BrandIntroduction';
+import { HeroProduct } from '@/app/component/HeroProductCard';
+import { ArticlesSectionData } from '@/app/component/ArticlesSection';
+import { BannerData } from '@/app/component/hero-banner';
+import { HighlightCategoryData } from '@/app/component/hightlight-category';
 
-// mockup data
-const mockArticles = {
+// Articles mockup data
+export const mockArticles: ArticlesSectionData = {
     sectionTitle: 'Harnessing The Wind of Change',
     seeMoreLink: '/blog',
     articles: [
@@ -35,8 +33,8 @@ const mockArticles = {
     ],
 };
 
-/* MOCK DATA */
-const heroData: HeroData[] = [
+// Hero data mockup
+export const heroData: HeroData[] = [
     {
         backgroundImage: '/images/home/banner-4.png',
         tagline: 'A well-known brand producing electric fans and appliances.',
@@ -44,10 +42,10 @@ const heroData: HeroData[] = [
         buttonLink: '/about-us',
         productImage: '',
     }
-]
+];
 
-// mockup data
-const CONTACT_CTA_DATA = {
+// Contact CTA mockup data
+export const CONTACT_CTA_DATA = {
     title: 'Harnessing\nThe Wind of Change',
     description: "Lorem ipsum dolor sit amet consectetur. Auctor sociis dui aenean et. Diam lorem vel enim duis magna. Leo malesuada vulputate lectus nisl turpis lacus mus etiam. Gravida aliquam augue vulputate feugiat pellentesque.",
     buttonText: "Contact Us",
@@ -55,8 +53,8 @@ const CONTACT_CTA_DATA = {
     imageSrc: "/images/home/banner/banner-3.png"
 };
 
-/* MOCK DATA */
-const heroProducts: HeroProduct[] = [
+// Hero products mockup data
+export const heroProducts: HeroProduct[] = [
     {
         imageSrc: '/images/home/banner-1.png',
         title: 'Harnessing\nThe Wind of Change',
@@ -71,10 +69,10 @@ const heroProducts: HeroProduct[] = [
         alignment: 'right',
         link: '/installation-fan',
     }
-]
+];
 
-// mockup data
-const highlightCategoryData: HighlightCategoryData = {
+// Highlight category mockup data
+export const highlightCategoryData: HighlightCategoryData = {
     title: 'HARNESSING\nTHE WIND OF CHANGE',
     description: 'Lorem ipsum dolor sit amet consectetur. Auctor sociis dui aenean et. Diam lorem vel enim duis magna. Leo malesuada vulputate lectus nisl turpis lacus mus etiam. Gravida aliquam augue vulputate feugiat pellentesque.',
     products: [
@@ -93,8 +91,8 @@ const highlightCategoryData: HighlightCategoryData = {
     ]
 };
 
-/* Mock Data */
-const banners: BannerData[] = [
+// Banners mockup data
+export const banners: BannerData[] = [
     {
         id: 1,
         image: '/images/banner/wind-box.jpg',
@@ -121,17 +119,3 @@ const banners: BannerData[] = [
     },
 ];
 
-const HomePage = () => {
-    return (
-        <>
-            <BannerSlider items={banners} />
-            <HighlightCategory data={highlightCategoryData} />
-            <HeroProductCard items={heroProducts} />
-            <ContactCTASection data={CONTACT_CTA_DATA} />
-            <BrandIntroductionCard items={heroData} />
-            <ArticlesSection data={mockArticles} />
-        </>
-    );
-};
-
-export default HomePage;
